@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dev_container
+    container_name: wesllycode_myapp_dev
     ports:
       - "8080:80"
       - "5173:5173"
