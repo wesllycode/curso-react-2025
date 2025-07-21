@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dev_container
+    ports:
+      - "8080:80"
+      - "5173:5173"
+    volumes:
+      - ./app:/app
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Monta o arquivo de configuração do Nginx
+    working_dir: /app
+    command: sh /entrypoint.sh
