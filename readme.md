@@ -34,9 +34,7 @@ docker exec -it dev_container sh
 Instale as dependências e rode o servidor de desenvolvimento do Vite:
 
 ```shell
-cd /app
-npm install
-npm run dev
+npm create vite@latest
 ```
 
 ---
