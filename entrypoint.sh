@@ -1,6 +1,10 @@
 #!/bin/sh
 echo ">>> Entrypoint.sh foi iniciado em $(date)"
 
+echo "Corrigindo permissões dentro do container..."
+   chown -R "$(id -u):$(id -g)" /app
+   chmod -R a+rw /app
+
 # Inicia o serviço do Nginx em modo "daemon" (segundo plano)
 nginx -g 'daemon on;'
 
