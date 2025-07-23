@@ -1,7 +1,16 @@
-LABEL maintainer="wesllycode"
+# Description: Dockerfile para criar uma imagem base com Node.js, Nginx e Git,
+#              preparada para rodar aplicações com Vite e Nginx.
+
+# Este Dockerfile cria uma imagem que:
+# - Usa o Node.js como base
+# - Instala o Nginx e o Git
+# - Configura um diretório de trabalho
+# - Prepara um script de inicialização
 
 # 1. Começamos com a imagem oficial do Node.js, que tem o sistema Alpine Linux
-FROM node:18-alpine
+FROM node:22-alpine
+
+LABEL maintainer="wesllycode"
 
 # 2. Como superusuário (root), atualizamos o sistema e instalamos Nginx e Git
 #    - 'apk add' é o gerenciador de pacotes do Alpine
