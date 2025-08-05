@@ -7,8 +7,9 @@ services:
       dockerfile: Dockerfile
     container_name: wesllycode_myapp_dev
     ports:
-      - "8080:80"
-      - "5173:5173"
+      - "0.0.0.0:8080:80"
+      - "0.0.0.0:3000:3000"
+      - "0.0.0.0:5173:5173"
     volumes:
       - ./app:/app
       - ./nginx.conf:/etc/nginx/nginx.conf  # Monta o arquivo de configuração do Nginx
