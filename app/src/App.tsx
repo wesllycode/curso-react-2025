@@ -1,17 +1,8 @@
-import { useState } from "react"
-
-function App() {
-
-    const [count, setCount] = useState(0)
+export function App() {  
 
   return (
       <>       
-        <p> Meu primeiro projeto em react</p>     
-        <button onClick={() => setCount(count + 1)}>
-            Count {count} 
-        </button>
+       Tudo vai começar
       </>
   )
 }
-
-export default App
