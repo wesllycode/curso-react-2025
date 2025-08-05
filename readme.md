@@ -1,63 +1,162 @@
-# Ambiente Docker: React/Vite + Node + Hot Reload
+# Curso Base React - Ambiente Docker
 
-Este guia explica como montar um ambiente Docker para executar um projeto React/Vite em modo de desenvolvimento, utilizando Node.js e Vite com hot reload.
-
----
-
-## 1. Estrutura dos arquivos
-
-- `Dockerfile`
-- `docker-compose.yml`
-- `entrypoint.sh`
-- `app/` (diretório do seu projeto React/Vite)
+Este projeto utiliza um ambiente Docker para executar um projeto React/Vite em modo de desenvolvimento, com Node.js e hot reload configurado.
 
 ---
 
-## 2. Suba o container
+## 🚀 Início Rápido
 
-Execute o comando abaixo para construir a imagem e iniciar o container:
+### 1. Subir o ambiente
+```bash
+docker compose up -d
+```
 
-```shell
-docker-compose up --build
+### 2. Executar o servidor de desenvolvimento
+```bash
+docker exec -it wesllycode_myapp_dev npm run dev
+```
+
+### 3. Acessar a aplicação
+- **Por padrão:** È porta 5173 se tiver ocupada use a 3000
+- **Desenvolvimento:** http://localhost:3000 (ou porta alternativa se 3000 estiver ocupada)
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+curso-base-react/
+├── app/                    # Código fonte React/Vite
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.ts
+├── docker-compose.yml      # Configuração Docker Compose
+├── Dockerfile             # Imagem Docker
+├── entrypoint.sh          # Script de inicialização
+└── nginx.conf             # Configuração Nginx
 ```
 
 ---
 
-## 3. Rode o Vite em modo desenvolvimento dentro do container
+## 🛠️ Comandos Úteis
 
-Com o volume mapeado (`./app:/app`), entre no container:
+### **Gerenciamento do Container**
 
-```shell
-docker exec -it dev_container sh
+```bash
+# Iniciar o container
+docker compose up -d
+
+# Parar o container
+docker compose down
+
+# Reconstruir e iniciar
+docker compose up --build -d
+
+# Ver logs em tempo real
+docker logs -f wesllycode_myapp_dev
+
+# Ver status dos containers
+docker compose ps
 ```
 
-Instale as dependências e rode o servidor de desenvolvimento do Vite:
+### **Execução de Comandos no Container**
 
-```shell
-npm create vite@latest
+```bash
+# Acessar o shell do container
+docker exec -it wesllycode_myapp_dev sh
+
+# Executar servidor de desenvolvimento
+docker exec -it wesllycode_myapp_dev npm run dev
+
+# Instalar dependências
+docker exec -it wesllycode_myapp_dev npm install
+
+# Executar build de produção
+docker exec -it wesllycode_myapp_dev npm run build
+
+# Executar linting
+docker exec -it wesllycode_myapp_dev npm run lint
+
+# Preview da build
+docker exec -it wesllycode_myapp_dev npm run preview
+```
+
+### **Desenvolvimento**
+
+```bash
+# Verificar portas em uso
+ss -tulpn | grep :3000
+
+# Limpar cache do Docker
+docker system prune -f
+
+# Ver uso de recursos
+docker stats
+
+# Executar comandos npm específicos
+docker exec -it wesllycode_myapp_dev npm run [comando]
+```
+
+### **Troubleshooting**
+
+```bash
+# Verificar se o container está rodando
+docker ps
+
+# Ver logs de erro
+docker logs wesllycode_myapp_dev
+
+# Reiniciar container
+docker compose restart
+
+# Forçar reconstrução da imagem
+docker compose build --no-cache
 ```
 
 ---
 
-## 4. Acesse o projeto pelo navegador
+## ⚙️ Configurações
 
-Acesse [http://localhost:5173](http://localhost:5173) para visualizar sua aplicação React/Vite com hot reload.
+### **Portas**
+- **3000:** Servidor de desenvolvimento Vite
+- **8080:** Servidor Nginx (produção)
 
-- Toda alteração feita nos arquivos em `app/` será refletida automaticamente no navegador.
-- O volume mapeado garante que alterações feitas localmente fiquem disponíveis no container em tempo real.
+### **Volumes Mapeados**
+- `./app:/app` - Código fonte
+- `./nginx.conf:/etc/nginx/nginx.conf` - Configuração Nginx
+
+### **Hot Reload**
+- Alterações nos arquivos são refletidas automaticamente
+- Volume mapeado garante sincronização em tempo real
 
 ---
 
-## Observações
+## 📦 Tecnologias
 
-- Não é necessário rodar `npm run build` para desenvolvimento; basta usar `npm run dev`.
-- O Nginx não é necessário para o ambiente de desenvolvimento com Vite, apenas para produção.
-- Para acessar o Vite via navegador, use a porta `5173` (ou configure outra porta em `vite.config.js`).
+- **React 19** - Biblioteca JavaScript para interfaces
+- **Vite 7** - Build tool e dev server
+- **TypeScript** - Tipagem estática
+- **Docker** - Containerização
+- **Nginx** - Servidor web (produção)
 
 ---
 
-## Referências
+## 🔧 Scripts Disponíveis
 
-- [Documentação oficial do Docker](https://docs.docker.com/)
-- [React](https://react.dev/)
-- [Vite](https://vitejs.dev/)
+```json
+{
+  "dev": "vite",           // Servidor de desenvolvimento
+  "build": "tsc -b && vite build",  // Build de produção
+  "lint": "eslint .",      // Linting do código
+  "preview": "vite preview" // Preview da build
+}
+```
+
+---
+
+## 📚 Referências
+
+- [React Documentation](https://react.dev/)
+- [Vite Documentation](https://vitejs.dev/)
+- [Docker Documentation](https://docs.docker.com/)
+- [TypeScript Documentation](https://www.typescriptlang.org/)
