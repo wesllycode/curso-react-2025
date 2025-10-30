@@ -1,0 +1,14 @@
+# Excluir node_modules, logs, builds e arquivos temporários
+**/node_modules
+**/dist
+**/.git
+**/.github
+**/*.log
+npm-debug.log*
+.DS_Store
+*.tgz
+.env
+.env.local
+.vscode
+.idea
+
